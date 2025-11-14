@@ -1,0 +1,13 @@
+services:
+  visualizer:
+    image: ghcr.io/autowarefoundation/autoware:universe-visualization-20251010  
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./etc/simulation:/autoware/scenario-sim
+    network_mode: "host"
+    environment:
+      - ROS_DOMAIN_ID=26
+      - DISPLAY=${DISPLAY}
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+    command: >
+      rviz2 -d /autoware/scenario-sim/rviz/autoware.rviz
